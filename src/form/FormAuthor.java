@@ -9,15 +9,10 @@ import entity.Author;
 import entity.AuthorJpaController;
 import entity.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,6 +31,7 @@ public class FormAuthor extends javax.swing.JPanel {
     private Author selected;
     //data baru
     private boolean isNew = true;
+    private List<Author> data;
 
     /**
      * Creates new form FormAuthor
@@ -65,8 +61,6 @@ public class FormAuthor extends javax.swing.JPanel {
             }
         });
     }
-
-    private List<Author> data;
 
     void initData() {
         Iterable<Author> rows = repository.findAuthorEntities();
@@ -189,10 +183,8 @@ public class FormAuthor extends javax.swing.JPanel {
     void clear() {
         isNew = true;
         txtName.setText("");
-        tblAuthor.clearSelection();
-        selected = new Author();
     }
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         String name = txtName.getText();
@@ -217,7 +209,9 @@ public class FormAuthor extends javax.swing.JPanel {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        clear();
+        isNew = true;
+        txtName.setText("");
+        tblAuthor.getSelectionModel().clearSelection();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
